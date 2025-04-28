@@ -1,0 +1,5 @@
+<h1>{{ task.title }}</h1>
+<p>{{ task.description }}</p>
+<p>Completed: {{ task.completed|yesno:"Yes,No" }}</p>
+
+<a href="{% url 'task_list' %}">Back to Task List</a>

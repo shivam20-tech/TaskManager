@@ -1,0 +1,20 @@
+{% if tasks %}
+    {% for task in tasks %}
+<h2><a href="{% url 'task_detail' task.pk %}">{{ task.title }}</a></h2>
+<p>{{ task.description }}</p>
+<p>Completed: {{ task.completed|yesno:"Yes,No" }}</p>
+<a href="{% url 'task_complete' task.pk %}">[Mark Completed]</a> |
+<a href="{% url 'task_delete' task.pk %}">[Delete]</a>
+<hr>
+    {% endfor %}
+{% else %}
+<p>No tasks available.</p>
+{% endif %}
+
+<a href="{% url 'task_create' %}">Create New Task</a>
+
+{% if messages %}
+  {% for message in messages %}
+<p style="color: green;">{{ message }}</p>
+  {% endfor %}
+{% endif %}

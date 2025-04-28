@@ -1,0 +1,6 @@
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="title" placeholder="Title" required><br><br>
+    <textarea name="description" placeholder="Description" required></textarea><br><br>
+    <button type="submit">Create Task</button>
+</form>
