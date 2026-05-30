@@ -361,3 +361,13 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+# ====================================================================
+# Python & Django Specific Ignores
+# ====================================================================
+TaskManagerProject/env/
+env/
+venv/
+.venv/
+*.pyc
+__pycache__/
+staticfiles/
