@@ -79,12 +79,16 @@ WSGI_APPLICATION = 'TaskManagerProject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+# Database
+# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
+
 DATABASES = {
     'default': dj_database_url.config(
         default='postgresql://taskmanager_db_cfy3_user:jPjYHZeuQLFNZLrQOoO7wW0j7L6rNDZC@dpg-d8dgsr6k1jcs7390dakg-a.singapore-postgres.render.com/taskmanager_db_cfy3',
         conn_max_age=600
     )
 }
+
 
 
 # Password validation
