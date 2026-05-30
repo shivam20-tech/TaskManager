@@ -1,5 +1,83 @@
-<h1>{{ task.title }}</h1>
-<p>{{ task.description }}</p>
-<p>Completed: {{ task.completed|yesno:"Yes,No" }}</p>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ task.title }} — Task Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'tasks/style.css' %}">
+</head>
+<body>
 
-<a href="{% url 'task_list' %}">Back to Task List</a>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <span class="dot"></span>
+      Task Manager
+    </div>
+    <div class="navbar-actions">
+      <a href="{% url 'task_list' %}" class="btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Back
+      </a>
+    </div>
+  </nav>
+
+  <div class="wrapper" style="max-width: 640px;">
+
+    <!-- FLASH MESSAGES -->
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    <div class="card">
+
+      <!-- Meta row -->
+      <div class="detail-meta">
+        {% if task.completed %}
+          <span class="badge badge-done">Completed</span>
+        {% else %}
+          <span class="badge badge-pending">In progress</span>
+        {% endif %}
+        <span style="font-size:0.75rem; color: var(--muted);">Task #{{ task.pk }}</span>
+      </div>
+
+      <!-- Title -->
+      <h1 style="font-size: 1.4rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.75rem;">
+        {{ task.title }}
+      </h1>
+
+      <hr class="divider" style="margin: 1rem 0;">
+
+      <!-- Description -->
+      <p class="detail-desc">{{ task.description }}</p>
+
+      <!-- Actions -->
+      <div class="detail-actions">
+        {% if not task.completed %}
+        <a href="{% url 'task_complete' task.pk %}" class="btn btn-success">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Mark as Complete
+        </a>
+        {% endif %}
+        <a href="{% url 'task_delete' task.pk %}" class="btn btn-danger"
+           onclick="return confirm('Delete this task?')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+          Delete Task
+        </a>
+        <a href="{% url 'task_list' %}" class="btn">
+          View All Tasks
+        </a>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
